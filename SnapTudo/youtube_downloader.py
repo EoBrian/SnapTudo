@@ -6,7 +6,7 @@ import PySimpleGUI as sg
 layout = [
     [sg.Text('LINK:',background_color='dimgray'), sg.Input('', key='-LINK-'), sg.Button('VERIFICAR',key='-BUTTON-')],
     
-    [sg.Text('TITLE:',visible=False,key='text1',background_color='dimgray'), sg.Text('', key='-TITLE-',visible=False)],
+    [sg.Text('TITLE:',visible=False,key='text1',background_color='dimgray'), sg.Text('', key='-TITLE-',visible=False,text_color='black')],
     
     [sg.Text('DESCRIPTION:',visible=False,key='text2',background_color='dimgray')],
     [sg.Multiline('', key='-DESCRIPTION-',visible=False,size=(50,10),expand_x=True)],
@@ -28,8 +28,7 @@ sg.theme_text_element_background_color('black')
 
 #---------------------------------------------------------------------------------------------------------------------------------
 
-WINDOW = sg.Window('SnapTudo', layout=layout, icon='icon.ico',
-                     font='Helvetica', button_color='red')
+WINDOW = sg.Window('SnapTudo', layout=layout, icon='icon.ico', button_color='red')
 
 #---------------------------------------------------------------------------------------------------------------------------------
 
