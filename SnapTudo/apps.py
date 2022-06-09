@@ -1,4 +1,5 @@
 from pytube import YouTube
+from threading import Thread
 import os
 
 
@@ -14,7 +15,6 @@ def pathDir():
 def pathDownload(diretório):
     #navegando até a pasta download
     os.chdir(diretório)
-
     return os.listdir()
 
 
@@ -37,7 +37,23 @@ def video(url):
     return yt
 
 
-def audioDownload(video_object, set_audio=-1):  
+completeDownload = lambda window, text: window['-COMPLETE-'].update(text, visible=True)
+
+
+def video_highest(video_object):
+    video_object.streams.get_highest_resolution().download(pathDir())
+
+
+def video_lowest(video_object):
+    video_object.streams.get_lowest_resolution().download(pathDir())
+
+
+def audioDownload(video_object, set_audio=-1): 
     video_object.streams.filter(only_audio=True)[set_audio].download(pathDir())
     renameAudio()
 
+
+def threadEls(function, number_threads=int):
+    for contador in range(number_threads):
+        threads = Thread(target=(function))
+        threads.start()
