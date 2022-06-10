@@ -63,7 +63,7 @@ WINDOW = sg.Window('SnapTudo', layout=layout, font='DejaVu, 13', icon='icon.ico'
 
 #---------------------------------------------------------------------------------------------------------------------------------
 while True:
-    event, values = WINDOW.read()
+    event, values = WINDOW.read(timeout=10)
 
     if event == sg.WIN_CLOSED:
         break
@@ -73,7 +73,7 @@ while True:
         try:
             WINDOW['-ERRO_LINK-'].update(visible=False)
             WINDOW['-COMPLETE-'].update(visible=False)
-            WINDOW['-PROGRESSBAR-'].update(100)
+            WINDOW['-PROGRESSBAR-'].update(0)
 
             video_object = apps.video(values['-LINK-'])
             
