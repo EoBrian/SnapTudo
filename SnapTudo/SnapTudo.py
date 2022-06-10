@@ -1,6 +1,5 @@
 import apps
 import PySimpleGUI as sg
-import asyncio
 
 sg.theme_background_color('#4b0082')
 sg.theme_button_color('#9932cc')
@@ -43,10 +42,10 @@ download_bar = [
     [sg.Text('AUDIO', expand_x=True, background_color='blueviolet', text_color='red')],
     [sg.Button('Download', key='-AUDIO-'), sg.Text('',key='-QUALITY-'), sg.Text('', key='-AUDIOSIZE-')],
 
-    #[sg.VPush()],
+    [sg.VPush()],
 
     #BARRA DE PROGRESSO
-    #[sg.ProgressBar(100, size=(20,20), expand_x=True, key='-PROGRESSBAR-')],
+    [sg.ProgressBar(100, size=(20,20), expand_x=True, key='-PROGRESSBAR-')],
 
     [sg.Text('', visible=False, key='-COMPLETE-', expand_x=True, justification='center')],
 ]
@@ -68,12 +67,13 @@ while True:
 
     if event == sg.WIN_CLOSED:
         break
-
+    
     #--------------------------------------------------------------------------------------------------------------------------------
     if event == '-BUTTON-' or event == 'enter:13':
         try:
             WINDOW['-ERRO_LINK-'].update(visible=False)
             WINDOW['-COMPLETE-'].update(visible=False)
+            WINDOW['-PROGRESSBAR-'].update(100)
 
             video_object = apps.video(values['-LINK-'])
             
@@ -104,17 +104,22 @@ while True:
             WINDOW['-ERRO_LINK-'].update(visible=True)
 
     #--------------------------------------------------------------------------------------------------------------------------------
+   
+
     try:
         if event == '-HIGH-':
             apps.threadEls(apps.video_highest(video_object), 1)
+            WINDOW['-PROGRESSBAR-'].update(100)
             apps.completeDownload(WINDOW, 'DOWNLOAD COMPLETO!')
         
         if event == '-BEST-':
             apps.threadEls(apps.video_lowest(video_object), 1)
+            WINDOW['-PROGRESSBAR-'].update(100)
             apps.completeDownload(WINDOW, 'DOWNLOAD COMPLETO!')
         
         if event == '-AUDIO-':
             apps.threadEls(apps.audioDownload(video_object, -1), 1)
+            WINDOW['-PROGRESSBAR-'].update(100)
             apps.completeDownload(WINDOW, 'DOWNLOAD COMPLETO!')
     except:
         apps.completeDownload(WINDOW, 'ERRO NO DOWNLOAD!')
