@@ -54,6 +54,6 @@ def audioDownload(video_object, set_audio=-1):
 
 
 def threadEls(function, number_threads=int):
-    for contador in range(number_threads):
+    for c in range(number_threads):
         threads = Thread(target=(function))
         threads.start()
